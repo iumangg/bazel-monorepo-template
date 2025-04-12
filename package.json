@@ -1,0 +1,13 @@
+{
+  "name": "bazel-monorepo-template",
+  "version": "0.0.1",
+  "description": "Bazel Monorepo Template - A template for Bazel monorepos",
+  "packageManager": "pnpm@10.6.5",
+  "scripts": {
+    "bzl-format": "pnpm exec buildifier -r --lint=fix ."
+  },
+  "devDependencies": {
+    "@bazel/bazelisk": "^1.25.0",
+    "@bazel/buildifier": "^8.0.3"
+  }
+}

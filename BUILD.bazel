@@ -1,0 +1,5 @@
+# Root BUILD file
+
+load("@npm//:defs.bzl", "npm_link_all_packages")  # Load the npm_link_all_packages function from the npm package
+
+npm_link_all_packages(name = "node_modules")  # Link all npm packages into the node_modules directory
