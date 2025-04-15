@@ -1,0 +1,33 @@
+"Bazel module dependency file"
+
+# Define the Bazel module with its name and version
+module(
+    name = "look-at-fin",
+    version = "0.0.1",
+)
+
+bazel_dep(name = "rules_nodejs", version = "6.3.0")  # Add Bazel rules for Node.js
+bazel_dep(name = "aspect_rules_js", version = "2.3.3")  # Add Bazel rules for JavaScript
+bazel_dep(name = "aspect_rules_ts", version = "3.1.0")  # Add Bazel rules for TypeScript
+
+# Configure Node.js toolchain with a specific Node.js version
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node.toolchain(node_version = "20.13.1")
+
+# Use pnpm as the package manager to install dependencies
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm", dev_dependency = True)
+use_repo(pnpm, "pnpm")  # Enables pnpm CLI inside Bazel
+
+# Convert pnpm-lock.yaml to a Bazel repository for managing npm dependencies
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+npm.npm_translate_lock(
+    name = "npm",  # Name of the Bazel repository
+    pnpm_lock = "//:pnpm-lock.yaml",  # Path to the pnpm-lock.yaml file
+    verify_node_modules_ignored = "//:.bazelignore",  # Ensure node_modules is ignored
+)
+use_repo(npm, "npm")  # Maps npm dependencies for use in Bazel
+
+# Configure TypeScript dependencies and rules
+ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext", dev_dependency = True)
+ts_ext.deps()  # Add TypeScript dependencies
+use_repo(ts_ext, "npm_typescript")  # Use the TypeScript repository

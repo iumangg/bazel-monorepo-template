@@ -1,0 +1,32 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@bazel/bazelisk':
+        specifier: ^1.25.0
+        version: 1.26.0
+      '@bazel/buildifier':
+        specifier: ^8.0.3
+        version: 8.0.3
+
+packages:
+
+  '@bazel/bazelisk@1.26.0':
+    resolution: {integrity: sha512-bTNcHdGyEQ9r7SczEYUa0gkEQhJo1ld2BjXI8fWBvsUeoHi03QpUs2HZgDbjjrpQFQqG2ZbO7ihZvH8MjhUTHw==}
+    hasBin: true
+
+  '@bazel/buildifier@8.0.3':
+    resolution: {integrity: sha512-X4BbSHDZrvXaldGKW0AkBMC0HPOosJyPykE8Z5LpGBCmCdgIhRJHtAjBOG21NRmZpwI8fc7A1rhhSOJ7UGmbFg==}
+    hasBin: true
+
+snapshots:
+
+  '@bazel/bazelisk@1.26.0': {}
+
+  '@bazel/buildifier@8.0.3': {}
