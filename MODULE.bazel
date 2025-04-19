@@ -2,7 +2,7 @@
 
 # Define the Bazel module with its name and version
 module(
-    name = "look-at-fin",
+    name = "bazel-monorepo-template",
     version = "0.0.1",
 )
 
