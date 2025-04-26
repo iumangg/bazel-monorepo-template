@@ -23,5 +23,15 @@ pnpm bazelisk clean --expunge
 pnpm bazelisk sync --enable_workspace
 
 # Build the root bazel build
-pnpm bazelisk build
+pnpm bazelisk build //... --sandbox_debug --verbose_failures
+```
+
+### B : apps/web-nextjs configuration
+
+```shell
+# Build the apps/web-nextjs app
+pnpm bazelisk build //apps/web-nextjs:web
+
+# Run the dev server for apps/web-nextjs
+pnpm bazelisk run //apps/web-nextjs:web-dev
 ```
