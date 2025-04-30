@@ -4,7 +4,14 @@
   "description": "Bazel Monorepo Template - A template for Bazel monorepos",
   "packageManager": "pnpm@10.6.5",
   "scripts": {
+    "clean": "bazelisk clean --expunge",
+    "sync": "bazelisk sync --enable_workspace",
+    "build": "bazelisk build //... --sandbox_debug --verbose_failures",
+    "dev-web-nextjs": "bazelisk run //apps/web-nextjs:web-dev",
     "bzl-format": "pnpm exec buildifier -r --lint=fix ."
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
   },
   "devDependencies": {
     "@bazel/bazelisk": "^1.25.0",

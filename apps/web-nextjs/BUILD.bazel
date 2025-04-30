@@ -1,0 +1,51 @@
+load("@aspect_rules_js//js:defs.bzl", "js_run_binary", "js_run_devserver")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//apps/web-nextjs:next/package_json.bzl", next_bin = "bin")  # web-nextjs is app name
+
+npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+)
+
+next_bin.next_binary(
+    name = "next_js_binary",
+    visibility = ["//visibility:public"],
+)
+
+sources = [
+    "next-env.d.ts",
+    "next.config.ts",
+    "postcss.config.mjs",
+    "package.json",
+    ":node_modules/next",
+    ":node_modules/react",
+    ":node_modules/react-dom",
+    ":node_modules/typescript",
+    ":node_modules/tailwindcss",
+    ":node_modules/@tailwindcss/postcss",
+    "//apps/web-nextjs/app",
+]
+
+js_run_binary(
+    name = "web",
+    srcs = sources,
+    args = ["build"],
+    chdir = package_name(),
+    out_dirs = [
+        ".next",
+        "out",
+    ],
+    tool = ":next_js_binary",
+)
+
+js_run_devserver(
+    name = "web-dev",
+    args = ["dev"],
+    chdir = package_name(),
+    command = "./node_modules/next/dist/bin/next",
+    data = sources,
+)

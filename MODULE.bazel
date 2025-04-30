@@ -1,4 +1,4 @@
-"Bazel module dependency file"
+# Bazel module dependency file
 
 # Define the Bazel module with its name and version
 module(
@@ -9,6 +9,7 @@ module(
 bazel_dep(name = "rules_nodejs", version = "6.3.0")  # Add Bazel rules for Node.js
 bazel_dep(name = "aspect_rules_js", version = "2.3.3")  # Add Bazel rules for JavaScript
 bazel_dep(name = "aspect_rules_ts", version = "3.1.0")  # Add Bazel rules for TypeScript
+bazel_dep(name = "aspect_bazel_lib", version = "2.14.0")  # Add Aspect's Bazel library
 
 # Configure Node.js toolchain with a specific Node.js version
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)

@@ -1,0 +1,29 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+js_library(
+    name = "app-css",
+    srcs = glob(["**/*.css"]),
+    visibility = ["//visibility:public"],
+)
+
+ts_project(
+    name = "app",
+    srcs = [
+        "layout.tsx",
+        "page.tsx",
+    ],
+    declaration = True,
+    resolve_json_module = True,
+    transpiler = "tsc",
+    tsconfig = "//apps/web-nextjs:tsconfig",
+    visibility = ["//apps/web-nextjs:__subpackages__"],
+    deps = [
+        ":app-css",
+        "//apps/web-nextjs:node_modules/@tailwindcss/postcss",
+        "//apps/web-nextjs:node_modules/@types/react",
+        "//apps/web-nextjs:node_modules/@types/react-dom",
+        "//apps/web-nextjs:node_modules/next",
+        "//apps/web-nextjs:node_modules/tailwindcss",
+    ],
+)
